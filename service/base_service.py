@@ -1,6 +1,5 @@
-from util.fetch import Fetch
+from util.fetch_util import Fetch
 from threading import Thread
-from logic.test_logic import TestLogic
 from logic.index_logic import IndexLogic
 from config.fetch_config import FetchConfig
 
@@ -9,8 +8,7 @@ class BaseService:
         self.base_url = FetchConfig.BASE_URL[:-1] if FetchConfig.BASE_URL.endswith("/") else FetchConfig.BASE_URL
         self.fetch: Fetch = Fetch(url=self.base_url, cookie=FetchConfig.COOKIE)
         self.logic_tasks: list = [
-            IndexLogic(fetch_object=self.fetch, base_url=self.base_url),
-            TestLogic(fetch_object=self.fetch, base_url=self.base_url)
+            IndexLogic(fetch_object=self.fetch, base_url=self.base_url)
         ]
     
     def start(self) -> None:
